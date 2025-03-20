@@ -59,6 +59,7 @@ class API_Star_Wars(API_consumer):
             print(f"Erro na requisição: {e}")
             return None
 
+
 class API_Ice_and_Fire(API_consumer):
     ''' The universe of Ice And Fire '''
     def __init__(self):
@@ -72,8 +73,8 @@ class API_Ice_and_Fire(API_consumer):
         URL = self.URL + str(id)
         try:
             dado = requests.get(URL).json()
-            
-            return ((dado.get('name'), dados.get('tvSeries')))
-        except:
-            pass
+            tv_series = dado.get('tvSeries', [])
+            return (dado.get('name'), tv_series)
+        except requests.exceptions.RequestException as e:
+            pr
  
