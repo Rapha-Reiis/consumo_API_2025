@@ -35,6 +35,7 @@ class API_Rick_Morty(API_consumer):
         URL = self.URL + str(id)
         try:
             dado = requests.get(URL).json()
+            
             return ((dado.get('id'), dado.get('name'), dado.get('species')))
         except:
             pass
@@ -52,9 +53,11 @@ class API_Star_Wars(API_consumer):
         URL = self.URL + str(id)
         try:
             dado = requests.get(URL).json()
-            return ((dado.get('id'), dado.get('name')))
-        except:
-            pass
+            filmes = dado.get('films', [])
+            return (dado.get('name'), filmes)
+        except requests.exceptions.RequestException as e:
+            print(f"Erro na requisição: {e}")
+            return None
 
 class API_Ice_and_Fire(API_consumer):
     ''' The universe of Ice And Fire '''
@@ -69,7 +72,8 @@ class API_Ice_and_Fire(API_consumer):
         URL = self.URL + str(id)
         try:
             dado = requests.get(URL).json()
-            return ((dado.get('id'), dado.get('name')))
+            
+            return ((dado.get('name'), dados.get('tvSeries')))
         except:
             pass
  
